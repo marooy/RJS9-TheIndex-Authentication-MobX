@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import authStore from "../stores/authStore";
 
 class Signup extends Component {
   constructor(props) {
@@ -21,10 +22,14 @@ class Signup extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    authStore.Signup(this.state, this.props.history);
+    console.log("send to store");
   }
 
   render() {
+    {
+      if (authStore.user) return <Redirect to="/" />;
+    }
     const { username, email, password } = this.state;
 
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import authStore from "../stores/authStore";
 
 class Login extends Component {
   constructor(props) {
@@ -20,10 +21,14 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    authStore.Login(this.state, this.props.history);
+    console.log("SEND LOGIN TO BACKEND");
   }
 
   render() {
+    {
+      if (authStore.user) return <Redirect to="/" />;
+    }
     const { username, password } = this.state;
 
     return (
